@@ -7,9 +7,8 @@
   <meta name="description" content="La verdad sobre los extraterrestres, ovnis, y la conspiracion del gobierno">
   <meta name="keywords" content="ovnis, aliens, conspiracion, area51, extraterrestres, reptilianos">
 
-  <!-- MIDI Player: Tone.js + @tonejs/midi -->
-  <script src="https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@tonejs/midi@2.0.28/build/Midi.js"></script>
+  <!-- Audio X-Files -->
+  <audio id="xfiles-audio" src="xfiles.mp3" loop preload="none"></audio>
 
   <style type="text/css">
 
@@ -894,50 +893,14 @@
 <script type="text/javascript">
 
   // =======================================================
-  //  MIDI PLAYER con Tone.js + @tonejs/midi
+  //  AUDIO PLAYER — X-Files Theme MP3
   // =======================================================
-  var midiCargado = false;
 
-  async function playMidi() {
+  function playMidi() {
     try {
-      await Tone.start();
-
-      // Sintetizador tipo theremin — perfecto para X-Files
-      var synth = new Tone.PolySynth(Tone.Synth, {
-        oscillator: { type: 'sine' },
-        envelope: { attack: 0.08, decay: 0.1, sustain: 0.85, release: 1.0 },
-        volume: -14
-      }).toDestination();
-
-      var reverb = new Tone.Reverb({ decay: 3, wet: 0.3 }).toDestination();
-      synth.connect(reverb);
-
-      var response = await fetch('xfiles.mid');
-      if (!response.ok) throw new Error('MIDI no encontrado');
-      var arrayBuffer = await response.arrayBuffer();
-      var midi = new Midi(arrayBuffer);
-
-      var bpm = (midi.header.tempos && midi.header.tempos[0]) ? midi.header.tempos[0].bpm : 120;
-      Tone.Transport.bpm.value = bpm;
-
-      // Carga solo las primeras 3 pistas (melodia principal)
-      var duration = 0;
-      midi.tracks.slice(0, 3).forEach(function(track) {
-        track.notes.forEach(function(note) {
-          Tone.Transport.schedule(function(time) {
-            synth.triggerAttackRelease(note.name, note.duration, time, note.velocity);
-          }, note.time);
-          if (note.time + note.duration > duration) duration = note.time + note.duration;
-        });
-      });
-
-      Tone.Transport.loop = true;
-      Tone.Transport.loopEnd = duration || 120;
-      Tone.Transport.start();
-
-      console.log('>> MIDI X-Files iniciado. La zona clasificada esta activa.');
-      midiCargado = true;
-
+      var audio = document.getElementById('xfiles-audio');
+      audio.volume = 0.6;
+      audio.play();
     } catch(e) {
       console.log('>> Audio no disponible:', e.message);
     }
