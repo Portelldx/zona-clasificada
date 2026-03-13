@@ -1,0 +1,1004 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>:: LA ZONA CLASIFICADA :: OVNIS - CONSPIRACIONES - LA VERDAD ESTA AHI FUERA ::</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="La verdad sobre los extraterrestres, ovnis, y la conspiracion del gobierno">
+  <meta name="keywords" content="ovnis, aliens, conspiracion, area51, extraterrestres, reptilianos">
+
+  <!-- MIDI Player: Tone.js + @tonejs/midi -->
+  <script src="https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tonejs/midi@2.0.28/build/Midi.js"></script>
+
+  <style type="text/css">
+
+    /* ========================================
+       BLINK SIMULADO (porque <blink> es la verdad)
+       ======================================== */
+    @keyframes blink-efecto {
+      0%,  49% { visibility: visible; }
+      50%, 100% { visibility: hidden;  }
+    }
+    .blink { animation: blink-efecto 1s step-start infinite; }
+
+    /* ========================================
+       EFECTO GLITCH para el titulo principal
+       ======================================== */
+    @keyframes glitch {
+      0%   { text-shadow:  2px  0   #ff00ff, -2px  0   #00ff00; }
+      20%  { text-shadow: -3px  0   #ff00ff,  3px  0   #00ff00; transform: skewX(-2deg); }
+      40%  { text-shadow:  3px  2px #ff00ff, -3px -2px #00ff00; }
+      60%  { text-shadow: -2px  3px #ffff00,  2px -3px #ff00ff; transform: skewX(2deg); }
+      80%  { text-shadow:  2px -2px #00ff00, -2px  2px #ff00ff; }
+      100% { text-shadow:  2px  0   #ff00ff, -2px  0   #00ff00; }
+    }
+    .glitch-titulo { animation: glitch 3s infinite; }
+
+    /* ========================================
+       PULSO para elementos importantes
+       ======================================== */
+    @keyframes pulso {
+      0%,100% { opacity: 1;   transform: scale(1);    }
+      50%      { opacity: 0.6; transform: scale(1.04); }
+    }
+    .pulso { animation: pulso 2s ease-in-out infinite; }
+
+    /* ========================================
+       ROTACION para el OVNI
+       ======================================== */
+    @keyframes rotar-ovni {
+      0%   { transform: rotate(0deg)   translateX(6px); }
+      50%  { transform: rotate(180deg) translateX(-6px); }
+      100% { transform: rotate(360deg) translateX(6px); }
+    }
+    .ovni-anim { animation: rotar-ovni 6s linear infinite; }
+
+    /* ========================================
+       BAILE para el alien
+       ======================================== */
+    @keyframes bailar {
+      0%,100% { transform: translateY(0)    rotate(-3deg); }
+      25%      { transform: translateY(-8px) rotate(3deg);  }
+      50%      { transform: translateY(0)    rotate(-3deg); }
+      75%      { transform: translateY(-4px) rotate(6deg); }
+    }
+    .alien-baile { animation: bailar 0.7s ease-in-out infinite; }
+
+    /* ========================================
+       CONTADOR VISITAS glow
+       ======================================== */
+    @keyframes contador-glow {
+      0%,100% { box-shadow: 0 0 4px #00ff00, 0 0 8px #00ff00;  }
+      50%      { box-shadow: 0 0 14px #00ff00, 0 0 28px #00ff00; }
+    }
+
+    /* ========================================
+       SCANLINES intro
+       ======================================== */
+    @keyframes scanlines {
+      0%   { background-position: 0 0; }
+      100% { background-position: 0 4px; }
+    }
+
+    /* ========================================
+       ALIEN SHOCK (WTF moment movil)
+       ======================================== */
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      10%,30%,50%,70%,90% { transform: translateX(-10px); }
+      20%,40%,60%,80% { transform: translateX(10px); }
+    }
+    @keyframes zoom-in-alien {
+      0%   { transform: scale(0.2) rotate(-10deg); opacity: 0; }
+      60%  { transform: scale(1.15) rotate(2deg);  opacity: 1; }
+      100% { transform: scale(1)    rotate(0deg);  opacity: 1; }
+    }
+
+    #alien-shock {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: #000;
+      z-index: 99998;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      animation: shake 0.5s ease-in-out 0.1s;
+    }
+    #alien-shock img {
+      max-width: 80vw;
+      max-height: 55vh;
+      animation: zoom-in-alien 0.6s ease-out forwards;
+    }
+    #alien-shock .shock-titulo {
+      font-family: "Comic Sans MS", cursive;
+      font-size: clamp(24px, 7vw, 48px);
+      color: #ff0000;
+      text-shadow: 0 0 20px #ff0000;
+      margin: 20px 0 10px 0;
+      letter-spacing: 2px;
+    }
+    #alien-shock .shock-sub {
+      font-family: "Courier New", monospace;
+      font-size: clamp(13px, 4vw, 20px);
+      color: #00ff00;
+      letter-spacing: 3px;
+    }
+
+    /* ========================================
+       INTRO SCREEN
+       ======================================== */
+    #intro-screen {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: #000000;
+      z-index: 99999;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #intro-overlay-bg {
+      position: absolute;
+      top:0; left:0; width:100%; height:100%;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent, transparent 2px,
+        rgba(0,255,0,0.03) 2px, rgba(0,255,0,0.03) 4px
+      );
+      pointer-events: none;
+      animation: scanlines 0.1s linear infinite;
+    }
+
+    #intro-content {
+      position: relative;
+      text-align: center;
+      z-index: 2;
+      padding: 0 20px;
+    }
+
+    /* ========================================
+       CUERPO PRINCIPAL (oculto hasta click)
+       ======================================== */
+    #contenido-principal { display: none; }
+
+    /* ========================================
+       ESTILOS GENERALES
+       ======================================== */
+    body {
+      background-color: #000000;
+      background-image:
+        radial-gradient(rgba(255,255,255,0.7) 1px, transparent 1px),
+        radial-gradient(rgba(255,255,255,0.4) 1px, transparent 1px);
+      background-size: 60px 60px, 35px 35px;
+      background-position: 0 0, 17px 17px;
+      color: #00ff00;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 14px;
+      margin: 0;
+      padding: 0;
+    }
+
+    a         { color: #ffff00; text-decoration: underline; }
+    a:hover   { color: #ff00ff; text-decoration: none; }
+    a:visited { color: #ff69b4; }
+
+    ::-webkit-scrollbar              { width: 12px; background: #000; }
+    ::-webkit-scrollbar-thumb        { background: #00ff00; border: 1px solid #004400; }
+    ::-webkit-scrollbar-track        { background: #001100; }
+
+    .tabla-principal {
+      border: 3px solid #00ff00;
+      background-color: #000;
+    }
+
+    .celda-lateral {
+      background-color: #0a0a0a;
+      border-right: 2px dashed #00ff00;
+      vertical-align: top;
+      padding: 10px;
+    }
+
+    .celda-central {
+      background-color: #000;
+      vertical-align: top;
+      padding: 12px;
+    }
+
+    .titulo-seccion {
+      font-family: "Comic Sans MS", cursive;
+      font-size: 20px;
+      color: #ff00ff;
+      text-transform: uppercase;
+      border-bottom: 2px solid #ff00ff;
+      padding-bottom: 5px;
+      margin-bottom: 10px;
+    }
+
+    .caja-verde   { border: 2px solid #00ff00; background-color: #001100; padding: 10px; margin-bottom: 12px; }
+    .caja-amarilla{ border: 2px solid #ffff00; background-color: #111100; padding: 10px; margin-bottom: 12px; }
+    .caja-magenta { border: 2px solid #ff00ff; background-color: #110011; padding: 10px; margin-bottom: 12px; }
+
+    .texto-verde    { color: #00ff00; font-family: "Courier New", monospace; }
+    .texto-amarillo { color: #ffff00; font-family: "Comic Sans MS", cursive; }
+    .texto-magenta  { color: #ff00ff; font-family: "Comic Sans MS", cursive; }
+    .texto-rojo     { color: #ff3333; font-family: "Comic Sans MS", cursive; }
+    .texto-cyan     { color: #00ffff; font-family: "Courier New", monospace; }
+
+    .separador-estrella {
+      color: #ffff00;
+      font-size: 14px;
+      text-align: center;
+      letter-spacing: 4px;
+      margin: 8px 0;
+    }
+
+    .foto-evidencia {
+      display: block;
+      width: 100%;
+      max-width: 220px;
+      border: 3px solid #00ff00;
+      margin: 0 auto;
+    }
+
+    .contador-visitas {
+      display: inline-block;
+      background-color: #000;
+      color: #00ff00;
+      border: 3px inset #00aa00;
+      font-family: "Courier New", monospace;
+      font-size: 26px;
+      letter-spacing: 6px;
+      padding: 8px 16px;
+      animation: contador-glow 2s ease-in-out infinite;
+    }
+
+    marquee { width: 100%; }
+
+    .hr-verde    { border: 0; border-top: 2px solid #00ff00;  margin: 8px 0; }
+    .hr-amarillo { border: 0; border-top: 2px solid #ffff00;  margin: 8px 0; }
+    .hr-magenta  { border: 0; border-top: 2px solid #ff00ff;  margin: 8px 0; }
+
+    /* ========================================
+       RESPONSIVE MOVIL
+       ======================================== */
+    @media screen and (max-width: 820px) {
+      /* Tabla principal en bloque vertical */
+      table.tabla-principal,
+      table.tabla-principal > tbody,
+      table.tabla-principal > tbody > tr,
+      table.tabla-principal > tbody > tr > td {
+        display: block !important;
+        width: 100% !important;
+        box-sizing: border-box;
+      }
+
+      /* Ocultar sidebars en movil para lectura limpia */
+      .celda-lateral {
+        border-right: none !important;
+        border-bottom: 2px dashed #00ff00 !important;
+      }
+
+      /* Cabecera: tabla interna en columna */
+      td[colspan="3"] table,
+      td[colspan="3"] table > tbody,
+      td[colspan="3"] table > tbody > tr,
+      td[colspan="3"] table > tbody > tr > td {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+      }
+
+      .glitch-titulo {
+        font-size: clamp(22px, 7vw, 40px) !important;
+        letter-spacing: 1px !important;
+      }
+
+      .titulo-seccion { font-size: 18px; }
+      body { font-size: 15px; }
+
+      /* Tabla de razas en movil */
+      table[border="1"] { font-size: 12px; }
+
+      /* Foto evidencia full width en movil */
+      .foto-evidencia { max-width: 100%; }
+
+      /* Area51 columna de texto + gif en movil: stack */
+      table[border="0"][cellpadding="4"] td {
+        display: block !important;
+        width: 100% !important;
+      }
+    }
+
+  </style>
+</head>
+<body>
+
+<!-- ============================================================
+     ALIEN SHOCK - WTF moment especial para movil
+     ============================================================ -->
+<div id="alien-shock">
+  <img src="img/alien_glow.gif" alt="ALIEN DETECTADO">
+  <p class="shock-titulo blink">⚠ AGENTE DETECTADO ⚠</p>
+  <p class="shock-sub">TRANSMITIENDO COORDENADAS AL SECTOR 7-G...</p>
+  <p class="shock-sub blink" style="color:#ff00ff; margin-top:10px;">EL GOBIERNO YA SABE QUE ESTAS AQUI</p>
+</div>
+
+
+<!-- ============================================================
+     PANTALLA DE ENTRADA - ZONA CLASIFICADA
+     ============================================================ -->
+<div id="intro-screen" onclick="entrarZonaClasificada()">
+  <div id="intro-overlay-bg"></div>
+  <div id="intro-content">
+    <table border="0" cellpadding="0" cellspacing="0" align="center">
+      <tr>
+        <td align="center" style="padding-bottom:20px;">
+          <pre style="color:#00ff00; font-size:clamp(10px,2vw,14px); line-height:1.3; font-family:'Courier New',monospace; text-shadow: 0 0 8px #00ff00; overflow:hidden;">
+     .  . . . * .  .    .  . * .
+  .        .        .        .
+      *  .    .  .    .  *  .   .
+   .    ___________    .    .
+     . /   [o] [o]  \  .  .    .
+  .  /  [o]  *  [o]  \ .    .
+    /________________________\   .
+   (   .  .  .  .  .  .  .  )
+    \________________________/
+    |_______|[===]|_________|
+         |         |
+  . . .  |   . .   |  . .  *
+          \  .  .  /
+  .        \_____/  .    .   .
+      .  .    *   .    .    .
+          </pre>
+        </td>
+      </tr>
+      <tr>
+        <td align="center">
+          <p style="font-family:'Comic Sans MS',cursive; font-size:clamp(12px,3vw,15px); color:#ff0000; letter-spacing:3px; margin:0 0 8px 0;">
+            ⚠ ACCESO RESTRINGIDO - NIVEL OMEGA ⚠
+          </p>
+          <p class="glitch-titulo" style="font-family:'Comic Sans MS',cursive; font-size:clamp(22px,6vw,36px); font-weight:bold; color:#00ff00; letter-spacing:4px; margin:0 0 8px 0; text-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;">
+            &gt;&gt; ENTRAR A LA ZONA CLASIFICADA &lt;&lt;
+          </p>
+          <p style="font-family:'Courier New',monospace; font-size:clamp(12px,3vw,14px); color:#ff00ff; margin:0 0 24px 0; letter-spacing:2px;">
+            [ TOCA AQUI PARA CONTINUAR ]
+          </p>
+          <p class="blink" style="font-family:'Courier New',monospace; font-size:clamp(11px,2.5vw,13px); color:#ffff00; margin:0; letter-spacing:1px;">
+            *** ACTIVANDO PROTOCOLO DE ENCRIPTACION... ***
+          </p>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+
+<!-- ============================================================
+     CONTENIDO PRINCIPAL
+     ============================================================ -->
+<div id="contenido-principal">
+
+  <!-- MARQUEE SUPERIOR -->
+  <marquee behavior="scroll" direction="left" scrollamount="5"
+           style="background:#000; color:#ff00ff; font-family:'Comic Sans MS',cursive; font-size:15px; padding:6px 0; border-bottom:2px solid #ff00ff;">
+    *** OVNI AVISTADO SOBRE AREA 51 *** LOS REPTILIANOS CONTROLAN LOS GOBIERNOS ***
+    LA LUNA ES UNA BASE ALIENÍGENA *** CHEMTRAILS CONFIRMADOS *** HOMBRE DE NEGRO VISTO EN ROSWELL ***
+    EL GOBIERNO OCULTA LA VERDAD *** EXPEDIENTE MAJESTIC-12 DESCLASIFICADO ***
+    CROP CIRCLES = MENSAJES EXTRATERRESTRES *** ABDUCCION EN TEXAS - TESTIGOS MUDOS ***
+  </marquee>
+
+  <!-- ============================================================
+       TABLA PRINCIPAL (maquetacion 1999 style)
+       ============================================================ -->
+  <table class="tabla-principal" width="860" border="0" cellpadding="0" cellspacing="2" align="center">
+
+    <!-- CABECERA -->
+    <tr>
+      <td colspan="3" align="center"
+          style="background:linear-gradient(180deg,#001100,#000); padding:16px; border-bottom:3px solid #00ff00;">
+
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td width="110" align="center" valign="middle">
+              <img src="img/ufo_spinner.gif" width="90" alt="OVNI Girando" class="pulso" style="display:block; margin:0 auto 6px auto;">
+              <img src="img/ufo_abduction.gif" width="100" alt="Abduccion" style="display:block; margin:0 auto;">
+            </td>
+            <td align="center" valign="middle" style="padding:0 10px;">
+              <p class="glitch-titulo"
+                 style="font-family:'Comic Sans MS',cursive; font-size:clamp(24px,5vw,42px); font-weight:bold;
+                        color:#00ff00; text-shadow:0 0 10px #00ff00, 0 0 20px #00ff00;
+                        margin:0 0 6px 0; letter-spacing:2px;">
+                &#x1F6F8; LA ZONA CLASIFICADA &#x1F6F8;
+              </p>
+              <p style="font-family:'Comic Sans MS',cursive; font-size:clamp(14px,3vw,18px); color:#ff00ff;
+                        margin:0 0 8px 0; letter-spacing:3px;">
+                *** LA VERDAD ESTA AHI FUERA ***
+              </p>
+              <p class="blink texto-amarillo" style="font-size:clamp(12px,2.5vw,15px); margin:0;">
+                &gt;&gt; BIENVENIDO INVESTIGADOR. ESTAN OBSERVANDO. &lt;&lt;
+              </p>
+            </td>
+            <td width="110" align="center" valign="middle">
+              <img src="img/alien_dancer.gif" height="110" alt="Alien Bailando" class="alien-baile" style="display:block; margin:0 auto 6px auto;">
+              <img src="img/alien_face.gif" width="80" alt="Alien" class="pulso" style="display:block; margin:0 auto;">
+            </td>
+          </tr>
+        </table>
+
+        <hr class="hr-verde">
+
+        <marquee behavior="alternate" direction="left" scrollamount="3"
+                 style="color:#ffff00; font-family:'Courier New',monospace; font-size:13px;">
+          &gt;&gt;&gt; ADVERTENCIA: Este sitio contiene informacion CLASIFICADA. Si eres agente del gobierno, sal AHORA. &lt;&lt;&lt;
+        </marquee>
+
+      </td>
+    </tr>
+
+    <!-- FILA PRINCIPAL -->
+    <tr valign="top">
+
+      <!-- COLUMNA IZQUIERDA -->
+      <td class="celda-lateral" width="190">
+
+        <p class="titulo-seccion">&#128274; MENU</p>
+
+        <table border="0" cellpadding="4" cellspacing="2" width="100%">
+          <tr>
+            <td style="border:1px solid #00ff00; background:#001100;">
+              <a href="#avistamientos" class="texto-verde" style="font-size:14px;">&gt; Avistamientos</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #00ff00; background:#001100;">
+              <a href="#razas" class="texto-verde" style="font-size:14px;">&gt; Razas Alienígenas</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #00ff00; background:#001100;">
+              <a href="#area51" class="texto-verde" style="font-size:14px;">&gt; Area 51</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #00ff00; background:#001100;">
+              <a href="#conspiraciones" class="texto-verde" style="font-size:14px;">&gt; Conspiraciones</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #00ff00; background:#001100;">
+              <a href="#contacto" class="texto-verde" style="font-size:14px;">&gt; Contactar</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="border:1px solid #ffff00; background:#111100;">
+              <a href="#chat" class="texto-amarillo" style="font-size:14px;">&gt;&gt; Chat Secreto</a>
+            </td>
+          </tr>
+        </table>
+
+        <hr class="hr-amarillo">
+
+        <!-- CONSTRUCCION GIF REAL -->
+        <p align="center">
+          <img src="img/construccion_triangulo.gif" width="150" alt="En Construccion" style="display:block; margin:0 auto;">
+        </p>
+        <p align="center" style="font-family:'Comic Sans MS',cursive; font-size:12px; color:#ffff00; margin:4px 0;">
+          Seccion en construccion<br><span class="blink">(desde 1997)</span>
+        </p>
+        <p align="center">
+          <img src="img/construccion_letrero.gif" width="140" alt="Under Construction" style="display:block; margin:4px auto;">
+        </p>
+
+        <hr class="hr-amarillo">
+
+        <p class="titulo-seccion" style="font-size:15px;">&#128248; VISITAS</p>
+        <p align="center">
+          <span class="contador-visitas" id="contador">004931</span>
+        </p>
+        <p align="center" style="font-family:'Courier New',monospace; font-size:11px; color:#00aa00; margin:2px 0;">
+          desde el 14/02/1997
+        </p>
+
+        <hr class="hr-verde">
+
+        <p class="titulo-seccion" style="font-size:15px;">&#128276; ALERTAS</p>
+        <div class="caja-magenta">
+          <p class="blink texto-rojo" style="font-size:14px; margin:0 0 6px 0;">
+            !! ALERTA MAXIMA !!
+          </p>
+          <p style="font-size:13px; color:#ff9900; margin:0; font-family:'Courier New',monospace;">
+            Nivel de amenaza:<br>
+            <span class="texto-rojo">&#9608;&#9608;&#9608;&#9608;&#9608; ROJO</span>
+          </p>
+        </div>
+
+        <div class="caja-verde" style="font-size:13px; font-family:'Courier New',monospace;">
+          <b>Ultimo avistamiento:</b><br>
+          Roswell, NM<br>
+          Coords: 33.38N 104.52W<br>
+          <span class="texto-amarillo">Clase: Delta-9</span>
+        </div>
+
+        <hr class="hr-magenta">
+
+        <!-- OVNI lateral REAL -->
+        <p align="center">
+          <img src="img/ufo_09.gif" width="140" alt="OVNI Espacio" style="display:block; margin:0 auto; border:2px solid #ffff00;">
+        </p>
+
+        <hr class="hr-verde">
+
+        <p style="font-size:11px; color:#555; font-family:'Courier New',monospace; text-align:center; margin:6px 0;">
+          Best viewed in<br>
+          Netscape Navigator 4.0<br>
+          800x600
+        </p>
+
+      </td>
+
+      <!-- COLUMNA CENTRAL -->
+      <td class="celda-central" width="480">
+
+        <!-- SECCION: ULTIMO AVISTAMIENTO -->
+        <a name="avistamientos"></a>
+        <div class="caja-verde">
+          <p class="titulo-seccion">&#128064; ULTIMO AVISTAMIENTO VERIFICADO</p>
+          <table border="0" cellpadding="8" cellspacing="4" width="100%">
+            <tr>
+              <td valign="top" width="230">
+                <img src="img/ufo_photo.gif" class="foto-evidencia" alt="Foto OVNI Roswell">
+                <p align="center" style="font-size:11px; color:#00aa00; font-family:'Courier New',monospace; margin:4px 0;">
+                  Foto tomada con camara<br>desechable. Sin retoques.
+                </p>
+              </td>
+              <td valign="top">
+                <p class="texto-amarillo" style="font-size:15px; margin:0 0 8px 0;">
+                  <b>Roswell, Nuevo Mexico - Abril 1999</b>
+                </p>
+                <p class="texto-verde" style="font-size:13px; margin:0 0 6px 0;">
+                  Testigo: <span class="texto-cyan">J. Henderson (anonimo)</span><br>
+                  Hora: 02:47 AM (hora local)<br>
+                  Duracion: ~12 minutos
+                </p>
+                <hr class="hr-verde">
+                <p class="texto-verde" style="font-size:13px; margin:0;">
+                  "El objeto emitia una LUZ VERDE que paralizo mi camioneta.
+                  Tres figuras altas y delgadas descendieron. Los <span class="texto-magenta blink">HOMBRES DE NEGRO</span>
+                  llegaron al dia siguiente y ME CONFISCARON TODO."
+                </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="separador-estrella">* * * * * * * * * * * * * * * * * * * *</div>
+
+        <!-- SECCION: RAZAS ALIENIGENAS -->
+        <a name="razas"></a>
+        <div class="caja-magenta">
+          <p class="titulo-seccion">&#128125; RAZAS ALIENIGENAS CONOCIDAS</p>
+
+          <table border="1" bordercolor="#ff00ff" cellpadding="7" cellspacing="0" width="100%"
+                 style="font-family:'Courier New',monospace; font-size:13px; color:#00ff00;">
+            <tr style="background:#110011; color:#ff00ff;">
+              <th>RAZA</th><th>ORIGEN</th><th>AMENAZA</th><th>AGENDA</th>
+            </tr>
+            <tr style="background:#0a000a;">
+              <td class="texto-cyan">Grises</td>
+              <td>Zeta Reticuli</td>
+              <td class="texto-rojo">ALTA</td>
+              <td>Abduccion / ADN</td>
+            </tr>
+            <tr style="background:#110011;">
+              <td class="texto-cyan">Nórdicos</td>
+              <td>Pleyadianos</td>
+              <td class="texto-amarillo">MEDIA</td>
+              <td>Guia espiritual</td>
+            </tr>
+            <tr style="background:#0a000a;">
+              <td class="texto-cyan blink">Reptilianos</td>
+              <td>??? CLASIF.</td>
+              <td class="texto-rojo blink">MAXIMA</td>
+              <td>CONTROL TOTAL</td>
+            </tr>
+            <tr style="background:#110011;">
+              <td class="texto-cyan">Insectoides</td>
+              <td>Orion</td>
+              <td class="texto-amarillo">ALTA</td>
+              <td>Recursos planeta</td>
+            </tr>
+            <tr style="background:#0a000a;">
+              <td class="texto-cyan">Anunnaki</td>
+              <td>Nibiru</td>
+              <td class="texto-rojo">CLASIF.</td>
+              <td>Creadores humanos</td>
+            </tr>
+          </table>
+
+          <p class="blink texto-amarillo" style="font-size:12px; margin:8px 0 0 0; text-align:center;">
+            *** FUENTE: Archivos MJ-12 / Filtrado por Deep Throat ***
+          </p>
+        </div>
+
+        <div class="separador-estrella">~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~ ~</div>
+
+        <!-- SECCION: AREA 51 -->
+        <a name="area51"></a>
+        <div class="caja-amarilla">
+          <p class="titulo-seccion" style="color:#ffff00; border-color:#ffff00;">&#128274; AREA 51 - LO QUE ELLOS NO QUIEREN QUE SEPAS</p>
+          <table border="0" cellpadding="4" cellspacing="0" width="100%">
+            <tr>
+              <td valign="top">
+                <p class="texto-verde" style="font-size:14px; margin:0 0 10px 0;">
+                  El gobierno lleva <span class="texto-rojo blink">52 ANOS</span> ocultando la verdad sobre la base de
+                  Groom Lake. Ingenieros del Proyecto SIGMA han revelado anonimamente que:
+                </p>
+                <ul style="color:#ffff00; font-family:'Comic Sans MS',cursive; font-size:14px; margin:0; padding-left:18px; line-height:1.8;">
+                  <li>Se guardan al menos <b>3 naves recuperadas</b> en el Hangar 18</li>
+                  <li>Hay <b>4 extraterrestres vivos</b> en custodia (2 Grises, 2 ???)</li>
+                  <li>La tecnologia <b>stealth</b> fue copiada de nave crasheada en 1953</li>
+                  <li>El <span class="texto-magenta">Proyecto Aurora</span> usa propulsion de antimateria alienigena</li>
+                  <li>Los tuneles subterraneos conectan con la <b>Base de Dulce, NM</b></li>
+                </ul>
+              </td>
+              <td valign="top" width="130" align="center">
+                <img src="img/ufo_3d.gif" width="120" alt="OVNI Area 51" style="border:2px solid #ffff00; display:block; margin:0 auto;">
+                <p style="font-size:11px; color:#ffff00; font-family:'Courier New',monospace; margin:4px 0; text-align:center;">
+                  Imagen satelital<br>censurada
+                </p>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="separador-estrella">- - - - - - - - - - - - - - - - - - - -</div>
+
+        <!-- SECCION: CONSPIRACIONES -->
+        <a name="conspiraciones"></a>
+        <div class="caja-verde">
+          <p class="titulo-seccion">&#128373; TOP 5 CONSPIRACIONES CONFIRMADAS</p>
+
+          <table border="0" cellpadding="0" cellspacing="5" width="100%">
+            <tr>
+              <td>
+                <div class="caja-magenta" style="margin:0;">
+                  <p class="texto-magenta" style="font-size:15px; margin:0 0 4px 0;"><b>1. LOS REPTILIANOS GOBIERNAN</b></p>
+                  <p class="texto-verde" style="font-size:13px; margin:0;">
+                    Familias de elite (Rockefeller, Windsor, Rothschild) son hibridos reptilianos
+                    disfrazados. Controlan bancos, medios y gobiernos desde el año 3000 A.C.
+                    <span class="blink texto-rojo">VERIFICADO.</span>
+                  </p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="caja-amarilla" style="margin:0;">
+                  <p class="texto-amarillo" style="font-size:15px; margin:0 0 4px 0;"><b>2. LA LUNA: ALUNIZAJE FALSO</b></p>
+                  <p class="texto-verde" style="font-size:13px; margin:0;">
+                    Stanley Kubrick filmo el "alunizaje" en un estudio de Hollywood.
+                    La NASA lo admitira en el anio 2012... si llegan.
+                  </p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="caja-magenta" style="margin:0;">
+                  <p class="texto-magenta" style="font-size:15px; margin:0 0 4px 0;"><b>3. CHEMTRAILS Y CONTROL MENTAL</b></p>
+                  <p class="texto-verde" style="font-size:13px; margin:0;">
+                    Los aviones dispersan nanoparticulas de Bario y Aluminio + compuestos
+                    psicotropicos para mantener a la poblacion <span class="texto-amarillo">DORMIDA Y OBEDIENTE.</span>
+                  </p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="caja-amarilla" style="margin:0;">
+                  <p class="texto-amarillo" style="font-size:15px; margin:0 0 4px 0;"><b>4. EL PROYECTO HAARP</b></p>
+                  <p class="texto-verde" style="font-size:13px; margin:0;">
+                    Antenas en Alaska controlan el clima, provocan terremotos y pueden
+                    modificar la conducta humana mediante ondas ELF. <span class="blink texto-rojo">ACTIVO AHORA.</span>
+                  </p>
+                </div>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div class="caja-magenta" style="margin:0;">
+                  <p class="texto-magenta" style="font-size:15px; margin:0 0 4px 0;"><b>5. EL NUEVO ORDEN MUNDIAL</b></p>
+                  <p class="texto-verde" style="font-size:13px; margin:0;">
+                    Para el anio 2000 el NOM instaurara un gobierno unico mundial.
+                    El simbolo del ojo en el dolar es su sello. <span class="texto-cyan">Annuit Coeptis.</span>
+                  </p>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- SECCION CONTACTO -->
+        <a name="contacto"></a>
+        <div class="caja-magenta" style="margin-top:10px;">
+          <p class="titulo-seccion">&#128231; CONTACTAR AL INVESTIGADOR</p>
+          <p class="texto-verde" style="font-size:13px;">
+            Si tienes evidencia, has sido abducido, o sabes algo que EL GOBIERNO no quiere que se sepa,
+            escribeme a:
+          </p>
+          <p align="center">
+            <a href="mailto:zona_clasificada@hotmail.com"
+               class="texto-amarillo"
+               style="font-family:'Comic Sans MS',cursive; font-size:16px;">
+              zona_clasificada@hotmail.com
+            </a>
+          </p>
+          <p class="blink texto-rojo" style="font-size:12px; text-align:center; font-family:'Courier New',monospace; margin:4px 0;">
+            NOTA: Este email es MONITOREADO por la NSA. Usa PGP.
+          </p>
+        </div>
+
+      </td>
+
+      <!-- COLUMNA DERECHA -->
+      <td class="celda-lateral" width="175" style="border-right:none; border-left:2px dashed #00ff00;">
+
+        <p class="titulo-seccion" style="font-size:15px;">&#128250; PRUEBAS</p>
+
+        <!-- Foto 1: Phoenix Lights -->
+        <div style="border:2px solid #00ff00; background:#001100; padding:4px; margin-bottom:10px; text-align:center;">
+          <img src="img/ufo_05.gif" width="145" height="95" alt="Phoenix Lights 1997" style="display:block; margin:0 auto; object-fit:cover;">
+          <p style="font-size:11px; color:#00ff00; font-family:'Courier New',monospace; margin:3px 0;">
+            Phoenix Lights 1997
+          </p>
+        </div>
+
+        <!-- Foto 2: Autopsia Roswell -->
+        <div style="border:2px solid #ff00ff; background:#110011; padding:4px; margin-bottom:10px; text-align:center;">
+          <img src="img/alien_face.gif" width="145" height="95" alt="Autopsia Roswell" style="display:block; margin:0 auto; object-fit:cover;">
+          <p style="font-size:11px; color:#ff00ff; font-family:'Courier New',monospace; margin:3px 0;">
+            Roswell Autopsia<br><span class="blink">CENSURADO</span>
+          </p>
+        </div>
+
+        <!-- Foto 3: Abduccion -->
+        <div style="border:2px solid #ffff00; background:#111100; padding:4px; margin-bottom:10px; text-align:center;">
+          <img src="img/ufo_abduction.gif" width="145" height="95" alt="Abduccion" style="display:block; margin:0 auto; object-fit:cover;">
+          <p style="font-size:11px; color:#ffff00; font-family:'Courier New',monospace; margin:3px 0;">
+            Wiltshire, UK<br>Mensaje en clave
+          </p>
+        </div>
+
+        <hr class="hr-magenta">
+
+        <p class="titulo-seccion" style="font-size:14px;">&#128279; WEBS ALIADAS</p>
+        <table border="0" cellpadding="3" cellspacing="2" width="100%">
+          <tr>
+            <td style="font-size:13px;">
+              <a href="#" class="texto-amarillo">&gt; UFOsecret.net</a><br>
+              <a href="#" class="texto-amarillo">&gt; AlienProof.org</a><br>
+              <a href="#" class="texto-amarillo">&gt; TruthFiles.com</a><br>
+              <a href="#" class="texto-amarillo">&gt; MJDocs.htm</a><br>
+              <a href="#" class="texto-amarillo">&gt; CropCircles.de</a>
+            </td>
+          </tr>
+        </table>
+
+        <hr class="hr-verde">
+
+        <!-- Alien xenomorph -->
+        <p align="center">
+          <img src="img/alien_xenomorph.gif" width="110" alt="Xenomorfo" class="alien-baile" style="display:block; margin:0 auto;">
+        </p>
+
+        <hr class="hr-amarillo">
+
+        <p class="titulo-seccion" style="font-size:14px;">&#128202; ESTADISTICAS</p>
+        <div class="caja-verde" style="font-size:13px; font-family:'Courier New',monospace;">
+          Avistamientos 1999:<br>
+          <span class="texto-amarillo">&#9608;&#9608;&#9608;&#9608;&#9608;&#9608; 312</span><br><br>
+          Abducciones report.:<br>
+          <span class="texto-magenta">&#9608;&#9608;&#9608;&#9608; 47</span><br><br>
+          Contactos clase III:<br>
+          <span class="texto-rojo blink">&#9608;&#9608; 8 CLASIF.</span>
+        </div>
+
+        <hr class="hr-magenta">
+
+        <p class="titulo-seccion" style="font-size:14px;">&#128100; WEB RING</p>
+        <p align="center">
+          <a href="#" style="font-size:13px; color:#00ffff;">[&lt;&lt; Anterior]</a>
+          <br>
+          <span style="font-size:12px; color:#ff00ff; font-family:'Courier New',monospace;">
+            UFO Web Ring<br>#00247
+          </span>
+          <br>
+          <a href="#" style="font-size:13px; color:#00ffff;">[Siguiente &gt;&gt;]</a>
+        </p>
+
+      </td>
+    </tr>
+
+    <!-- PIE DE PAGINA -->
+    <tr>
+      <td colspan="3" align="center"
+          style="border-top:3px solid #00ff00; background:#000; padding:14px;">
+
+        <marquee behavior="scroll" direction="right" scrollamount="2"
+                 style="color:#00ff00; font-family:'Courier New',monospace; font-size:13px; margin-bottom:10px;">
+          &lt;! -- ELLOS ESTAN MIRANDO -- !&gt; &nbsp;&nbsp;&nbsp;
+          "La verdad no es lo que ves en TV... es lo que te ocultan." - El Informante &nbsp;&nbsp;&nbsp;
+          &lt;! -- ELLOS ESTAN MIRANDO -- !&gt;
+        </marquee>
+
+        <table border="0" cellpadding="6" cellspacing="10" align="center">
+          <tr>
+            <td align="center">
+              <img src="img/construccion_robot.gif" width="88" height="31" alt="Under Construction" style="border:1px solid #00ff00;">
+            </td>
+            <td align="center">
+              <img src="img/construccion_obrero.gif" width="88" height="50" alt="Obrero Construccion" style="border:1px solid #ffff00;">
+            </td>
+            <td align="center">
+              <div style="border:1px solid #ffff00; color:#ffff00; width:88px; height:31px; font-size:11px; font-family:'Courier New',monospace; display:flex; align-items:center; justify-content:center; background:#111100;">
+                Area 51 Ring
+              </div>
+            </td>
+            <td align="center">
+              <div style="border:1px solid #00aaff; color:#00aaff; width:88px; height:31px; font-size:11px; font-family:'Courier New',monospace; display:flex; align-items:center; justify-content:center; background:#000011;">
+                GeoCities Host
+              </div>
+            </td>
+          </tr>
+        </table>
+
+        <hr class="hr-verde">
+
+        <p style="font-family:'Comic Sans MS',cursive; font-size:13px; color:#555; margin:6px 0;">
+          &copy; 1997-1999 La Zona Clasificada &nbsp;|&nbsp;
+          <span class="blink texto-rojo">NO &copy; - COPIA Y DISTRIBUYE ESTA VERDAD</span>
+          &nbsp;|&nbsp; Ultima actualizacion: 31/12/1999 &nbsp;|&nbsp;
+          <span class="texto-amarillo">Y2K no nos detendra</span>
+        </p>
+
+        <p style="font-family:'Courier New',monospace; font-size:11px; color:#333; margin:2px 0;">
+          Este sitio es un ejercicio de memoria digital historica y satira cultural. Todos los "hechos" son ficticios.
+        </p>
+
+      </td>
+    </tr>
+
+  </table>
+  <!-- FIN TABLA PRINCIPAL -->
+
+  <!-- MARQUEE INFERIOR FINAL -->
+  <marquee behavior="scroll" direction="left" scrollamount="6"
+           style="background:#000; color:#00ff00; font-family:'Courier New',monospace; font-size:14px;
+                  padding:5px 0; border-top:2px solid #00ff00; margin-top:0;">
+    *** EL FIN DE SIGLO SE ACERCA *** Y2K = PLAN ILLUMINATI *** AREA 51 ABIERTA AL PUBLICO NUNCA ***
+    LOS GRISES YA ESTAN AQUI *** EL NOM VIGILARA INTERNET EN EL 2000 ***
+    ANONYMOUS CONFIRMA: OVNIS REALES *** SALVA ESTA PAGINA ANTES DE QUE LA BORREN ***
+    ELLOS TE OBSERVAN *** LA VERDAD ESTA AHI FUERA *** X-FILES BASADO EN HECHOS REALES ***
+  </marquee>
+
+</div>
+<!-- FIN CONTENIDO PRINCIPAL -->
+
+
+<script type="text/javascript">
+
+  // =======================================================
+  //  MIDI PLAYER con Tone.js + @tonejs/midi
+  // =======================================================
+  var midiCargado = false;
+
+  async function playMidi() {
+    try {
+      await Tone.start();
+
+      // Sintetizador tipo theremin — perfecto para X-Files
+      var synth = new Tone.PolySynth(Tone.Synth, {
+        oscillator: { type: 'sine' },
+        envelope: { attack: 0.08, decay: 0.1, sustain: 0.85, release: 1.0 },
+        volume: -14
+      }).toDestination();
+
+      var reverb = new Tone.Reverb({ decay: 3, wet: 0.3 }).toDestination();
+      synth.connect(reverb);
+
+      var response = await fetch('xfiles.mid');
+      if (!response.ok) throw new Error('MIDI no encontrado');
+      var arrayBuffer = await response.arrayBuffer();
+      var midi = new Midi(arrayBuffer);
+
+      var bpm = (midi.header.tempos && midi.header.tempos[0]) ? midi.header.tempos[0].bpm : 120;
+      Tone.Transport.bpm.value = bpm;
+
+      // Carga solo las primeras 3 pistas (melodia principal)
+      var duration = 0;
+      midi.tracks.slice(0, 3).forEach(function(track) {
+        track.notes.forEach(function(note) {
+          Tone.Transport.schedule(function(time) {
+            synth.triggerAttackRelease(note.name, note.duration, time, note.velocity);
+          }, note.time);
+          if (note.time + note.duration > duration) duration = note.time + note.duration;
+        });
+      });
+
+      Tone.Transport.loop = true;
+      Tone.Transport.loopEnd = duration || 120;
+      Tone.Transport.start();
+
+      console.log('>> MIDI X-Files iniciado. La zona clasificada esta activa.');
+      midiCargado = true;
+
+    } catch(e) {
+      console.log('>> Audio no disponible:', e.message);
+    }
+  }
+
+  // =======================================================
+  //  ZONA CLASIFICADA - Script de entrada
+  // =======================================================
+
+  function mostrarContenido() {
+    document.getElementById('contenido-principal').style.display = 'block';
+  }
+
+  function entrarZonaClasificada() {
+    var intro = document.getElementById('intro-screen');
+    var shock = document.getElementById('alien-shock');
+
+    // Desvanecer intro
+    intro.style.transition = 'opacity 1s ease-out';
+    intro.style.opacity = '0';
+
+    // Iniciar musica MIDI
+    playMidi();
+
+    // Movil: mostrar alien shock antes del contenido
+    if (window.innerWidth < 820) {
+      setTimeout(function() {
+        intro.style.display = 'none';
+        shock.style.display = 'flex';
+        // Vibrar el telefono si esta disponible
+        if (navigator.vibrate) { navigator.vibrate([300, 100, 300, 100, 500]); }
+        setTimeout(function() {
+          shock.style.display = 'none';
+          mostrarContenido();
+        }, 3500);
+      }, 900);
+    } else {
+      setTimeout(function() {
+        intro.style.display = 'none';
+        mostrarContenido();
+      }, 1100);
+    }
+  }
+
+  // Efecto de cursor 1999-style
+  document.addEventListener('mousemove', function(e) {
+    document.title = '[ X:' + e.clientX + ' Y:' + e.clientY + ' ] :: ZONA CLASIFICADA';
+  });
+
+  // Contador de visitas falso animado
+  (function animarContador() {
+    var base = 4931;
+    var el = document.getElementById('contador');
+    if (!el) return;
+    setInterval(function() {
+      base += Math.floor(Math.random() * 3);
+      el.textContent = String(base).padStart(6, '0');
+    }, 8000);
+  })();
+
+</script>
+
+</body>
+</html>
